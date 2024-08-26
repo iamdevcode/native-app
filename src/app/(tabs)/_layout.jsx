@@ -1,4 +1,5 @@
-import icons from '#/icons'
+import { colors } from '#/constants/theme/colors'
+import { tabs_routes } from '#/constants/uidata/tabs_routes'
 import { TabIcon } from '@/components/TabIcon'
 import { Tabs } from 'expo-router'
 
@@ -8,72 +9,33 @@ export default function TabsLayout() {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarActiveTintColor: '#FFA001',
-        tabBarInactiveTintColor: '#CDCDE0',
+        tabBarActiveTintColor: colors.secondary,
+        tabBarInactiveTintColor: colors.gray,
         tabBarStyle: {
-          backgroundColor: '#161622',
-          borderTopWidth: 1,
-          borderTopColor: '#232533',
+          backgroundColor: colors.black[100],
+          borderTopWidth: 0,
+          borderTopColor: colors.black[200],
           height: 70
         }
       }}
     >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon
-              color={color}
-              focused={focused}
-              name="Home"
-              icon={icons.home}
-            />
-          )
-        }}
-      />
-      <Tabs.Screen
-        name="bookmark"
-        options={{
-          title: 'Bookmark',
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon
-              color={color}
-              focused={focused}
-              name="Bookmark"
-              icon={icons.bookmark}
-            />
-          )
-        }}
-      />
-      <Tabs.Screen
-        name="create"
-        options={{
-          title: 'Create',
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon
-              color={color}
-              focused={focused}
-              name="Create"
-              icon={icons.plus}
-            />
-          )
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon
-              color={color}
-              focused={focused}
-              name="Profile"
-              icon={icons.profile}
-            />
-          )
-        }}
-      />
+      {tabs_routes.map(({ name, title, icon }, i) => (
+        <Tabs.Screen
+          key={i}
+          name={name}
+          options={{
+            title: title,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                color={color}
+                focused={focused}
+                title={title}
+                icon={icon}
+              />
+            )
+          }}
+        />
+      ))}
     </Tabs>
   )
 }
